@@ -23,8 +23,8 @@ export class ProjectApiRepository implements ProjectRepository {
     return response.data
   }
 
-  async delete(id: string): Promise<Project> {
+  async delete(id: string): Promise<void> {
     const response = await api.delete(`/projects/${id}`)
-    return response.data
+    return response.data;
   }
 }
