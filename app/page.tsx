@@ -1,6 +1,20 @@
 import Image from "next/image";
 
-export default function Home() {
+import { GetProjectsUseCase } from "@/domains/projects/use-cases/get-project.usecase"
+import { ProjectApiRepository } from "@/infrastructure/repositories/project-api.repository"
+
+export default async function Home() {
+
+  const repo = new ProjectApiRepository()
+  const useCase = new GetProjectsUseCase(repo)
+
+  try {
+    const projects = await useCase.execute()
+    console.log(projects)
+  } catch (err) {
+    console.log("API not connected yet (expected)")
+  }
+
   return (
     <div className="flex min-h-screen items-center justify-center bg-zinc-50 font-sans dark:bg-black">
       <main className="flex min-h-screen w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
